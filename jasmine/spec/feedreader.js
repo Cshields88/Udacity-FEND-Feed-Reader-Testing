@@ -33,7 +33,7 @@ $(function () {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
             }
-        })
+        });
 
 
 
@@ -41,7 +41,7 @@ $(function () {
         it('defines a name', function () {
             for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name).not.toBe(0);
+                expect(allFeeds[i].name.length).not.toBe(0);
             }
         });
     });
@@ -62,7 +62,7 @@ $(function () {
             expect($('body').hasClass('menu-hidden')).toEqual(false);
             icon.click();
             expect($('body').hasClass('menu-hidden')).toEqual(true);
-        })
+        });
 
     });
 
@@ -92,25 +92,26 @@ $(function () {
 
         //Before each spec empty the feed
         beforeEach(function (done) {
-            $('.feed').empty()
+            $('.feed').empty();
 
             //Starts at first feed
             loadFeed(0, function () {
                 startingEntry = $('.feed').find("h2").text();
+                done();
             });
 
             //Switches to a different feed to test if content has changed
-            loadFeed(1, function () {
-                newEntry = $('.feed').find("h2").text();
-                done();
-            });
+
         });
 
         //Checks to make sure it loads the disired content when a new feed is chosen
         it('loads a new feed when content changes', function (done) {
-            expect(startingEntry).not.toEqual(newEntry)
-            done();
+            //Switches to a different feed to test if content has changed
+            loadFeed(1, function () {
+                newEntry = $('.feed').find("h2").text();
+                expect(startingEntry).not.toEqual(newEntry);
+                done();
+            });
         });
     });
-
 }());
